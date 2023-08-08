@@ -1,0 +1,20 @@
+{
+  "name": "aguscypress",
+  "version": "1.0.0",
+  "description": "Cypress test automatiza pil",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "Cypress",
+    "test",
+    "automation",
+    "pil"
+  ],
+  "author": "Darwoft",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^12.17.2"
+  }
+}
