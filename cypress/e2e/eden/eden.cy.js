@@ -3,7 +3,9 @@
 import EdenEvent from "../../Page/edenEvent";
 import EdenHome from "../../Page/edenHome"
 import EdenHeader from "../../Page/edenHeader";
+import EdenIngreso from "../../Page/edenIngreso";
 
+const edenIngreso = new EdenIngreso();
 const edenEvent = new EdenEvent();
 const edenHeader = new EdenHeader();
 const edenHome = new EdenHome();
@@ -99,5 +101,18 @@ describe("test sobre la pagina eden entradas", ()=>{
 
         const eventTxt = 'Experiencia Queen "Champions of the World Tour 23" ';
         edenEvent.getEventTitle().should("have.text", eventTxt);
+    })
+
+    //Tarea que dejo Aguss
+    it.only("Verificar mensaje: Usuario o Contraseña incorrecta", () => {
+        cy.visit("https://www.edenentradas.com.ar");
+        edenHeader.getIngreso().click();
+
+        edenIngreso.getCampoEmail().type("falso@gmail.com");
+        edenIngreso.getCampoPassword().type("contraseña");
+
+        edenIngreso.getBtnIngresar().click();
+        edenIngreso.getMensajeError().should("have.text", "Usuario o Contraseña incorrecta");
+
     })
 })
