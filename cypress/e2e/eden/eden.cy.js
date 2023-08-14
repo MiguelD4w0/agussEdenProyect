@@ -5,17 +5,24 @@ import EdenHome from "../../Page/edenHome"
 import EdenHeader from "../../Page/edenHeader";
 import EdenIngreso from "../../Page/edenIngreso";
 
+const edenSalas = require("../../Page/edenSalas");
+
 const edenIngreso = new EdenIngreso();
 const edenEvent = new EdenEvent();
 const edenHeader = new EdenHeader();
 const edenHome = new EdenHome();
 
+//Import del utils
+const utils = require("../../Page/utils");
+
 describe("test sobre la pagina eden entradas", ()=>{
+    beforeEach(() =>{
+        cy.visit("/")
+    });
 
     //it.only para solo ejecutar ese test, puede haber mas de un .only en el mismo describe
     it("Verificar subtitulos", () => {
-        cy.visit("https://www.edenentradas.com.ar/sitio/contenido/inicio")
-
+        
         const txtBuscar = "BUSCAR EVENTO";
         const txtCalendar = "CALENDARIO DE EVENTOS"
 
@@ -30,7 +37,6 @@ describe("test sobre la pagina eden entradas", ()=>{
     })
 
     it("Verificar Menu", () => {
-        cy.visit("https://www.edenentradas.com.ar/sitio/contenido/inicio")
 
         //Creamos un array para el menu 
         const menuBtn = ["HOME","TODOS","AGENDA DEL FINDE","RECITALES","TEATROS","CUARTETOS","FESTIVALES","SALAS"]; 
@@ -64,8 +70,8 @@ describe("test sobre la pagina eden entradas", ()=>{
     });
 
     it("Verificar pagina recitales", () => {
-        cy.visit("https://www.edenentradas.com.ar/");
-        
+        //cy.visit("https://www.edenentradas.com.ar/");
+        const newUrl = `${Cypress.config().baseUrl}sitio/contenido/recitales`;
         edenHeader.getMenuButtons().contains("RECITALES").click(); //Una forma de encontrar el boton mas optima
         //edenHeader.getMenuButtons().eq(3).click();
         //cy.get("#navbar a").eq(3).click();
@@ -73,7 +79,7 @@ describe("test sobre la pagina eden entradas", ()=>{
         //para que uno pueda leer el codigo de manera facil
         //const newUrl = "https://www.edenentradas.com.ar/sitio/contenido/recitales";
         //url sirve para chekear en que url esta actualemente el usuario
-        //cy.url().should("eq", newUrl);
+        cy.url().should("eq", newUrl);
 
         //en caso de que tengamos ambiente desa o test o prod podemos hacer
         //hacemos una comparacion de una Url parcial
@@ -81,7 +87,6 @@ describe("test sobre la pagina eden entradas", ()=>{
     });
 
     it("Verificar imagen del Logo", ()=>{
-        cy.visit("https://www.edenentradas.com.ar");
 
         //con un .and puedo seguir haciendo verificaciones pero en este caso serian del tipo should
         edenHeader.getImageLogo().should("be.visible").and("have.prop", "naturalHeight").and("be.greaterThan", 0);
@@ -91,9 +96,9 @@ describe("test sobre la pagina eden entradas", ()=>{
         edenHeader.getImageLogo().should("have.attr", "alt", "EdenEntradas");
 
     });
+    
 
     it("Verificar el funcionamiento del Buscador", () => {
-        cy.visit("https://www.edenentradas.com.ar");
 
         //Escribir en cualquier input que nos haga falta
         edenHeader.getSearchInput().type("Queen");
@@ -103,8 +108,125 @@ describe("test sobre la pagina eden entradas", ()=>{
         edenEvent.getEventTitle().should("have.text", eventTxt);
     })
 
+    it("Jira-2012 Verificar Titulo de Salas", () => {
+       
+        edenHeader.getMenuButtons().contains("SALAS").click();
+    });
+
+    it("Calendario", () => {
+
+        const nombresMeses = [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+        ];
+        const fechaActual = new Date();
+        const mesActual = fechaActual.getMonth();
+        const anioActual = fechaActual.getFullYear();
+        const nombreMesActual = nombresMeses[mesActual];
+        const diaActual = fechaActual.getDate();
+
+        cy.log(nombreMesActual);//Por ejemplo Agosto
+        cy.log(anioActual);//por ejemplo 2023
+        cy.log(diaActual);//por ejemplo 4
+        
+        edenHome.getCalendarTitle().should("contain.text", nombreMesActual);
+        edenHome.getCalendarTitle().should("contain.text", anioActual);
+
+        edenHome
+        .getCalendar()
+        .find("td")
+        .each((cuadradoDia, $inx) => {
+            if($inx < diaActual){
+                cy.wrap(cuadradoDia).should(
+                   "have.class", 
+                   "ui-datepicker-unselectable ui-state-disabled"
+                );
+                cy.log(`El día ${$inx} es no seleccionable`);
+            }
+        });
+    });
+
+    it("Calendario 2", () => {
+        const [dia, mes, anio] = utils.getCompleteDate();
+    
+        edenHome.getCalendarTitle().should("contain.text", mes);
+        edenHome.getCalendarTitle().should("contain.text", anio);
+    
+        edenHome
+          .getCalendar()
+          .find("td")
+          .each((cuadradoDia, $inx) => {
+            if ($inx < dia) {
+              cy.wrap(cuadradoDia).should(
+                "have.class",
+                "ui-datepicker-unselectable ui-state-disabled"
+              );
+              cy.log(`El día ${$inx} es no seleccionable`);
+            }
+          });
+      });
+
+      it("Buscador Nuevo", () => {
+        edenHeader.getSearchInput().type("Experiencia");
+      });
+
+    it("Verificar nombre de salas", () => {
+        //cy.visit("https://www.edenentradas.com.ar/sitio/contenido/salas");
+
+        const arrSalas = [
+            "Plaza de la Musica",
+            "Sala del Rey",
+            "Refugio Guernica",
+            "Captian Blue XL",
+            "Teatro Cultural Cañanda",
+            "Sala Agustín Tosco – Luz y Fuerza - Bº Centro",
+            "Sala de Las Americas",
+            "Studio Theater",
+            "Casa Babylon",
+        ];
+
+        edenHeader.getMenuButtons().contains("SALAS").click();
+
+        //Validacion de los titulos iterando por elemento
+        edenSalas.getSalasBlock().each((block, $inx) => {
+            cy.wrap(block).should("be.visible");
+            cy.wrap(block).should("contain.text", titulosSalas[$inx]);
+        });
+
+        //Validacion de titulos por array
+        arrSalas.forEach((titulo, $inx) => {
+            edenSalas.getSalasBlock().eq($inx).should("contain.text", titulo);
+        });
+    });
+
+    it("Verificar salas completo", () => {
+    edenHeader.getMenuButtons().contains("SALAS").click();
+
+    cy.fixture(`salas.json`).then((file) => {
+        //Validación ITERANDO en ELEMENTOS
+        file.forEach((salaData, $inx) => {
+          edenSalas.getSalasBlock().eq($inx).should("be.visible");
+          edenSalas.getSalasTitle().eq($inx).should("have.text", salaData.title);
+          edenSalas
+            .getSalasPuntoDeVenta()
+            .eq($inx)
+            .should("contain.text", salaData.address);
+        });
+    });
+  });
+
     //Tarea que dejo Aguss
-    it.only("Verificar mensaje: Usuario o Contraseña incorrecta", () => {
+    it.skip("Verificar mensaje: Usuario o Contraseña incorrecta", () => {
         cy.visit("https://www.edenentradas.com.ar");
         edenHeader.getIngreso().click();
 
@@ -115,4 +237,10 @@ describe("test sobre la pagina eden entradas", ()=>{
         edenIngreso.getMensajeError().should("have.text", "Usuario o Contraseña incorrecta");
 
     })
-})
+
+
+
+
+
+
+});

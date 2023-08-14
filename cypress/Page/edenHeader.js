@@ -13,7 +13,11 @@ class EdenHeaderLocators {
 
         //Seccion de busqueda
         this.searchInput = "#espectaculoList"; //id
-        this.searchSuggestion = ".ui-menu-item"; //clase
+        this.searchSuggestion = "li.ui-menu-item"; //clase
+
+        //Calendario
+        this.calendarTitle = '.ui-datepicker-title';
+        this.calendar = '.ui-datepicker-calendar';
     }
 }
 
@@ -27,7 +31,7 @@ export default class EdenHeader{
         return cy.get(this.locators.imageLogo);
     }
 
-    getMenuButtons(){
+    getMenuButtons() {
         return cy.get(this.locators.menuButtons);
     }
 
@@ -49,5 +53,15 @@ export default class EdenHeader{
         return cy.get(this.locators.searchSuggestion);
     }
 
+    ///////////////////////////////////////////////////////////
+
+    //Calendario 
+    getCalendarTitle(){
+        return cy.get(this.locators.calendarTitle);
+    }
+
+    getCalendar(){
+        return cy.get(this.locators.calendar);
+    }
 
 }
