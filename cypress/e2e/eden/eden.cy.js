@@ -18,14 +18,14 @@ const utils = require("../../Page/utils");
 describe("test sobre la pagina eden entradas", ()=>{
 
     beforeEach(() =>{
-
+        cy.openWeb();
         //const tamPantalla = Cypress.env("viewportdesktop").device;
         //cy.viewport(tamPantalla);
 
-        const tamPantalla = Cypress.env("viewportmobile").device;
-        cy.viewport(tamPantalla);
+        //const tamPantalla = Cypress.env("viewportmobile").device;
+        //cy.viewport(tamPantalla);
 
-        cy.visit("/")
+        //cy.visit("/")
     });
 
     //it.only para solo ejecutar ese test, puede haber mas de un .only en el mismo describe

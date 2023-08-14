@@ -6,14 +6,14 @@ const edenHome2 = require("../../Page/edenHome2"); // primero que estubo
 describe("test sobre la pagina eden entradas", ()=>{
 
     beforeEach(() =>{
-
+        cy.openWeb();
         //const tamPantalla = Cypress.env("viewportdesktop").device;
         //cy.viewport(tamPantalla);
 
-        const tamPantalla = Cypress.env("viewportmobile").device;
-        cy.viewport(tamPantalla);
+        //const tamPantalla = Cypress.env("viewportmobile").device;
+        //cy.viewport(tamPantalla);
 
-        cy.visit("/")
+        //cy.visit("/")
     });
 
     it("Verificar subtitulos", () => {
