@@ -4,7 +4,8 @@
   "description": "Cypress test automatiza pil",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "cypress:run:eden": "npx cypress run --e2e --browser chrome --spec cypress/e2e/eden"
   },
   "keywords": [
     "Cypress",
