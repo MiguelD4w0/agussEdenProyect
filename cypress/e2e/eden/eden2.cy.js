@@ -5,8 +5,19 @@ const edenHome2 = require("../../Page/edenHome2"); // primero que estubo
 
 describe("test sobre la pagina eden entradas", ()=>{
 
+    beforeEach(() =>{
+
+        //const tamPantalla = Cypress.env("viewportdesktop").device;
+        //cy.viewport(tamPantalla);
+
+        const tamPantalla = Cypress.env("viewportmobile").device;
+        cy.viewport(tamPantalla);
+
+        cy.visit("/")
+    });
+
     it("Verificar subtitulos", () => {
-        cy.visit("https://www.edenentradas.com.ar/sitio/contenido/inicio")
+        //cy.visit("https://www.edenentradas.com.ar/sitio/contenido/inicio")
 
         edenHome2.getSubTitles().first().should("contain.text", "BUSCAR EVENTO")
         edenHome2.getSubTitles().last().should("contain.text", "CALENDARIO DE EVENTOS")
@@ -17,7 +28,7 @@ describe("test sobre la pagina eden entradas", ()=>{
     });
 
     it("Verificar Menu", () => {
-        cy.visit("https://www.edenentradas.com.ar/sitio/contenido/inicio")
+        //cy.visit("https://www.edenentradas.com.ar/sitio/contenido/inicio")
 
         //Usaremos un Array para el Menu
         const menuBtn = ["HOME","TODOS","AGENDA DEL FINDE","RECITALES","TEATROS","CUARTETOS","FESTIVALES","SALAS"]; 
@@ -50,7 +61,7 @@ describe("test sobre la pagina eden entradas", ()=>{
     });
 
     it("Verificar pagina de recitales", () => {
-        cy.visit("https://www.edenentradas.com.ar/");
+        //cy.visit("https://www.edenentradas.com.ar/");
 
         edenHeader2.getMenuButtons().eq(3).click();
     });

@@ -16,7 +16,15 @@ const edenHome = new EdenHome();
 const utils = require("../../Page/utils");
 
 describe("test sobre la pagina eden entradas", ()=>{
+
     beforeEach(() =>{
+
+        //const tamPantalla = Cypress.env("viewportdesktop").device;
+        //cy.viewport(tamPantalla);
+
+        const tamPantalla = Cypress.env("viewportmobile").device;
+        cy.viewport(tamPantalla);
+
         cy.visit("/")
     });
 
