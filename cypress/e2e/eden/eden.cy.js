@@ -15,7 +15,7 @@ const edenHome = new EdenHome();
 //Import del utils
 const utils = require("../../Page/utils");
 
-describe("test sobre la pagina eden entradas", ()=>{
+describe("test sobre la pagina eden entradas", {tags: "@regression"}, ()=>{
 
     beforeEach(() =>{
         cy.openWeb();
@@ -29,7 +29,7 @@ describe("test sobre la pagina eden entradas", ()=>{
     });
 
     //it.only para solo ejecutar ese test, puede haber mas de un .only en el mismo describe
-    it("Verificar subtitulos", () => {
+    it("Verificar subtitulos", {tags: '@plp'}, () => {
         
         const txtBuscar = "BUSCAR EVENTO";
         const txtCalendar = "CALENDARIO DE EVENTOS"
@@ -44,7 +44,7 @@ describe("test sobre la pagina eden entradas", ()=>{
         
     })
 
-    it("Verificar Menu", () => {
+    it("Verificar Menu",{tags: ['@regression', "@smoke"]}, () => {
 
         //Creamos un array para el menu 
         const menuBtn = ["HOME","TODOS","AGENDA DEL FINDE","RECITALES","TEATROS","CUARTETOS","FESTIVALES","SALAS"]; 
