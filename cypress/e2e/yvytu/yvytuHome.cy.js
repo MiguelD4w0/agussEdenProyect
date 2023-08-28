@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+const yvytyHome = require("../../Page/yvytu/yvytuHome");
+
 describe("Test sobre la pagina de YVYTU", () => {
 
     it("Verfiicar Barra de Navegacion - Iterar en Botones pildora", () => {
@@ -7,17 +9,18 @@ describe("Test sobre la pagina de YVYTU", () => {
 
         const arrayMenu = ["LA RESERVA", "CABAÑAS", "COMO LLEGAR", "CONTACTO", "DONÁ"];
         
-        cy.get('a[class*="rounded-full py-2 px-4"]').each((boton, indice) =>{
+        yvytyHome.getMenuPillButtons().each((boton, indice) =>{
             cy.wrap(boton).should("have.text", arrayMenu[indice]).and("be.visible");
         });
     });
 
-    it.only("Verfiicar Barra de Navegacion - Iterar en Botones", () => {
+    it("Verfiicar Barra de Navegacion - Iterar en Botones", () => {
         cy.visit("https://vientosdelaselva.com.ar/");
 
+        //incluye el primer boton que seria una imagen
         const arrayMenu = ["","LA RESERVA", "CABAÑAS", "COMO LLEGAR", "CONTACTO", "DONÁ"];
         
-        cy.get("nav#menu-nav a").each((boton, indice) => {
+        yvytyHome.getMenuAllButtons().each((boton, indice) => {
             if(indice != 0){
                 cy.wrap(boton).should("have.text", arrayMenu[indice]);
             }
