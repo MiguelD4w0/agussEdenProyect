@@ -1,11 +1,11 @@
 /// <reference types="cypress" />
 
-import EdenEvent from "../../Page/edenEvent";
-import EdenHome from "../../Page/edenHome"
-import EdenHeader from "../../Page/edenHeader";
-import EdenIngreso from "../../Page/edenIngreso";
+import EdenEvent from "../../Page/eden/edenEvent";
+import EdenHome from "../../Page/eden/edenHome"
+import EdenHeader from "../../Page/eden/edenHeader";
+import EdenIngreso from "../../Page/eden/edenIngreso";
 
-const edenSalas = require("../../Page/edenSalas");
+const edenSalas = require("../../Page/eden/edenSalas");
 
 const edenIngreso = new EdenIngreso();
 const edenEvent = new EdenEvent();

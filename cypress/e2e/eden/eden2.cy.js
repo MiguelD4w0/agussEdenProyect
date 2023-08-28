@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-const edenHeader2 = require("../../Page/edenHeader2"); // el que llego
-const edenHome2 = require("../../Page/edenHome2"); // primero que estubo
+const edenHeader2 = require("../../Page/eden/edenHeader2"); // el que llego
+const edenHome2 = require("../../Page/eden/edenHome2"); // primero que estubo
 
 describe("test sobre la pagina eden entradas", ()=>{
 
