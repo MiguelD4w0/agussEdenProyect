@@ -5,7 +5,7 @@ const yvytyHome = require("../../Page/yvytu/yvytuHome");
 describe("Test sobre la pagina de YVYTU", () => {
 
     beforeEach(() => {
-        cy.visit("https://vientosdelaselva.com.ar/");
+        cy.visit("https://vientosdelaselva.com.ar");
     });
 
     it("Verfiicar Barra de Navegacion - Iterar en Botones pildora", () => {
@@ -44,6 +44,26 @@ describe("Test sobre la pagina de YVYTU", () => {
             cy.wrap(boton).and("be.visible");
         });
 
+    });
+
+    it("Verificar Boton de Reservar", () => {
+        //attr significa atributo
+        yvytyHome
+        .getGenericButton()
+        .contains("Reservar")
+        .should("have.attr", "href", "https://wa.me/5493757454400")
+        .and("have.attr", "target", "_blank");
+        /*yvytyHome
+        .getGenericButton()
+        .should("have.attr", "target", "_blank");*/
+        yvytyHome
+        .getGenericButton()
+        .contains("Reservar")
+        .should(
+           "have.css", 
+           "Background", 
+           "rgb(34, 153, 84) none repeat scroll 0% 0% / auto padding-box border-box"
+        );
     });
 
 
