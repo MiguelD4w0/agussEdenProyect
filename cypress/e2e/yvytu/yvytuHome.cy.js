@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+//Escribir los test en el orden que van apareciendo en la web los elementos
+
 const yvytyHome = require("../../Page/yvytu/yvytuHome");
 
 describe("Test sobre la pagina de YVYTU", () => {
@@ -64,6 +66,37 @@ describe("Test sobre la pagina de YVYTU", () => {
            "Background", 
            "rgb(34, 153, 84) none repeat scroll 0% 0% / auto padding-box border-box"
         );
+    });
+
+    it("Verficar Reel de imagenes", () => {
+        let arrayImagenes = ["frase01.png","noche.png","pasafauna.png","picaflor.png","carpincho.png","frase01.png","noche.png","pasafauna.png","picaflor.png","carpincho.png","frase01.png","noche.png","pasafauna.png","picaflor.png"];
+
+        yvytyHome.getReelImagenes().each((imagenes, index) => {
+            cy.wrap(imagenes).should("have.attr" , "src", `./public/images/gallery/${arrayImagenes[index]}`);
+        });
+        /*let newArray = [];
+        yvytyHome.getReelImagenes().each((imagen, index) => {
+            cy.wrap(imagen).invoke('attr','src').then((texto) => {
+                //cy.log(texto); //imprimo una variable
+                cy.log(texto);
+                newArray.push(texto);
+            });
+        }).then(() => {
+            cy.log(JSON.stringify(newArray));
+        });    //.first().should("exist")  */
+    });
+
+    it("Verficar Imagenes de las Cabañas", () => {
+        //el **** en cy-log es para que resalte el texto que tiene dentro en negrita
+        cy.log("**Todas las Imagenes tienen como texto alternativo Imagen 1**");
+        //En caso de que nuesto test falle y ese error este reportado en jira, ponemos un cy.log con el numero de incidencia
+        cy.log("YVYTU-015 Error texto alternativo");
+        yvytyHome.getimgCabaniaYaguarete()
+        .should("have.attr", "src", "./public/images/cabana-gallery/01.png")
+        .and("have.attr", "alt", "Imagen 1")
+        yvytyHome.getImgCabanaArasari()
+        .should("have.attr", "src", "./public/images/cabana-gallery/01.png")
+        .and("have.attr", "alt", "Imagen 1")
     });
 
 
