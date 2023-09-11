@@ -31,6 +31,20 @@ describe("Test sobre la pagina de YVYTU", () => {
         });
     });
 
+    it.only("Verificar Imagenes del Banner Principal", () => {
+        /*yvytyHome.getImagenesBanner().each((imagen) => {
+            cy.wrap(imagen).should("exist");
+        });*/
+        cy.log("Revisar el test");
+        yvytyHome.getImagenesBanner().eq(0).should("be.visible");
+        yvytyHome.getImgButton().eq(1).click();
+        yvytyHome.getImagenesBanner().eq(1).should("be.visible");
+        yvytyHome.getImgButton().eq(2).click();
+        yvytyHome.getImagenesBanner().eq(2).should("be.visible")
+        yvytyHome.getImgButton().last().click();
+        yvytyHome.getImagenesBanner().eq(3).should("be.visible")
+    });
+
     it("Verificar comportamiento del boton ir Arriba", () => {
 
         yvytyHome.getIrArribaButton().should("not.be.visible");
