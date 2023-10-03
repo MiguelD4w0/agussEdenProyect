@@ -86,7 +86,7 @@ describe("Test sobre la pagina de YVYTU", () => {
 
     });
 
-    it.only("Verificar textos de la pagina", () =>{
+    it("Verificar textos de la pagina", () =>{
         let inxPar = 0;
 
         //Leer el readme
