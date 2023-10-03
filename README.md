@@ -20,6 +20,20 @@ escribir:
 Se auto-generara una carpeta denominada "node-modules" con los archivos
 necesarios para poder ejectuar los tests.
 
+Para instalar cypress-image-diff se realiza el siguiente comando
+
+> npm install cypress-image-diff-js
+
+se agrega en e2e el siguiente codigo
+
+const compareSnapshotCommand = require("cypress-image-diff-js/dist/command");
+compareSnapshotCommand();
+
+y se termina con el agregado del siguiente codigo en cypress.config.js
+
+require("cypress-image-diff-js/dist/plugin")(on, config);
+return config;
+
 # Escenarios a Testear
 
 [x] Barra de navegacion

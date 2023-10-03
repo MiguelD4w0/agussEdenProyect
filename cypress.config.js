@@ -25,7 +25,7 @@ module.exports = defineConfig({
       require("cypress-mochawesome-reporter/plugin")(on);
       require("@bahmutov/cy-grep/src/plugin")(config);
       // IMPORTANT: return the config object
-      //require("cypress-image-diff-js/dist/plugin")(on, config);
+      require("cypress-image-diff-js/dist/plugin")(on, config);
       return config;
     },
   },

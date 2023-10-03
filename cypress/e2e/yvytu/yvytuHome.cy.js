@@ -210,6 +210,22 @@ describe("Test sobre la pagina de YVYTU", () => {
         );
     });
 
+    it("Visual Testing de Yvytu usando Snapshhoot", () => {
+        cy.compareSnapshot("home-page");
+    });
 
+    it("Visual Testing de Yvytu usando Snapshhoot en un elemento", () => {
+        yvytuHome.getMenuPillButtons().parent().compareSnapshot("botones");
+    });
+
+    it("Visual testing del boton ir arriba", () => {
+        /*yvytuHome
+        .getGenericSubtitle()
+        .contains("Conocé una historia mágica")
+        .scrollIntoView();*/
+
+        yvytuHome
+        .getIrArribaButton().should("have.css", "background", "rgb(34, 153, 84) none repeat scroll 0% 0% / auto padding-box border-box")
+    });
 
 });
